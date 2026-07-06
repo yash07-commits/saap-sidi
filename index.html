@@ -409,6 +409,7 @@
       width: 80px;
       height: 80px;
       perspective: 300px;
+      cursor: pointer;
     }
 
     .cube {
@@ -2693,6 +2694,14 @@
 
     // Dice roll trigger listener
     document.getElementById('btn-roll').addEventListener('click', triggerDiceRoll);
+
+    // Allow clicking the 3D dice itself to roll the dice
+    document.getElementById('dice-cube').addEventListener('click', () => {
+      // Check if button is disabled (which means it's not our turn or it's already rolling)
+      if (!document.getElementById('btn-roll').disabled) {
+        triggerDiceRoll();
+      }
+    });
 
     // Exit Gameplay
     document.getElementById('btn-exit-game').addEventListener('click', () => {
