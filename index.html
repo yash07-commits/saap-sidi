@@ -697,6 +697,148 @@
       top: 50%;
       left: 0;
     }
+
+    /* Mobile-first Media Queries for Responsive Gameplay */
+    @media (max-width: 768px) {
+      .app-container {
+        padding: 8px;
+      }
+      
+      header {
+        padding: 8px 12px;
+        margin-bottom: 12px;
+      }
+      
+      .brand h1 {
+        font-size: 18px;
+      }
+      
+      /* Main Menu Layout */
+      .menu-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+      
+      .menu-card {
+        padding: 20px;
+      }
+      
+      .menu-icon {
+        font-size: 32px;
+        margin-bottom: 8px;
+      }
+      
+      /* Local / Lobby container optimization */
+      .lobby-setup-container {
+        padding: 16px;
+        border-radius: 16px;
+      }
+      
+      /* Gameplay Layout */
+      .game-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      
+      .board-wrapper {
+        padding: 8px;
+        border-radius: 16px;
+        max-height: 50vh;
+        max-width: 100%;
+      }
+      
+      .controls-panel {
+        gap: 12px;
+      }
+      
+      .panel-card {
+        padding: 12px;
+        border-radius: 16px;
+      }
+      
+      /* Horizontal Players list on mobile */
+      .player-list {
+        flex-direction: row !important;
+        flex-wrap: wrap;
+        gap: 6px !important;
+        margin: 5px 0 !important;
+        max-width: 100% !important;
+      }
+      
+      .player-row {
+        flex: 1;
+        min-width: 130px;
+        padding: 6px 10px !important;
+        gap: 8px !important;
+        font-size: 12px;
+      }
+      
+      /* Make Roll Panel horizontal on mobile */
+      .controls-panel > div:nth-child(2) {
+        flex-direction: row !important;
+        justify-content: space-around !important;
+        align-items: center !important;
+        min-height: auto !important;
+        padding: 10px 15px !important;
+        gap: 15px;
+      }
+      
+      .dice-area {
+        padding: 0 !important;
+        flex-direction: row !important;
+        gap: 10px;
+        align-items: center;
+      }
+      
+      .dice-scene {
+        width: 60px;
+        height: 60px;
+      }
+      
+      .cube-face {
+        width: 60px;
+        height: 60px;
+        border-radius: 12px;
+        padding: 4px;
+      }
+      
+      .dot {
+        width: 8px;
+        height: 8px;
+      }
+      
+      /* Face Rotations scaled to 30px (half depth) */
+      .face-1 { transform: rotateY(0deg) translateZ(30px); }
+      .face-2 { transform: rotateX(-90deg) translateZ(30px); }
+      .face-3 { transform: rotateY(90deg) translateZ(30px); }
+      .face-4 { transform: rotateY(-90deg) translateZ(30px); }
+      .face-5 { transform: rotateX(90deg) translateZ(30px); }
+      .face-6 { transform: rotateX(180deg) translateZ(30px); }
+      
+      #btn-roll {
+        padding: 12px !important;
+        font-size: 14px !important;
+        flex: 1;
+        margin: 0;
+      }
+      
+      /* Chat box adjustments */
+      .chat-card {
+        min-height: 150px;
+      }
+      
+      /* Win overlay adjustments */
+      .win-card {
+        padding: 24px;
+        border-radius: 20px;
+      }
+      .win-crown {
+        font-size: 40px;
+      }
+      #win-name-display {
+        font-size: 22px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -705,12 +847,12 @@
     <!-- Header bar -->
     <header>
       <div class="brand">
-        <h1>Sapsidi • સાપ-સીડી</h1>
+        <h1>Sapsidi • Snakes & Ladders</h1>
         <span id="game-subtitle">Snakes and Ladders Multiplayer</span>
       </div>
       <div class="flex-center">
         <!-- Audio Synthesizer toggle -->
-        <button class="sound-toggle-btn" id="sound-toggle" title="Toggle Sound / અવાજ બંધ-ચાલુ કરો">
+        <button class="sound-toggle-btn" id="sound-toggle" title="Toggle Sound">
           🔊
         </button>
       </div>
@@ -719,23 +861,23 @@
     <!-- Screen 1: Main Menu -->
     <div id="screen-menu" class="screen active">
       <h2 style="font-size: 32px; font-weight: 800; text-align: center; margin-bottom: 30px;">
-        નવી રમત શરૂ કરો / Start Game
+        Start Game
       </h2>
       <div class="menu-grid">
         <div class="menu-card" id="menu-local">
           <span class="menu-icon">👥</span>
-          <h3>Local Play / લોકલ રમત</h3>
-          <p>એક જ ડિવાઇસ પર મિત્રો અથવા કમ્પ્યુટર સાથે રમો. Pass & Play or play vs AI.</p>
+          <h3>Local Play</h3>
+          <p>Play with friends or computer on a single device (Pass & Play or vs AI).</p>
         </div>
         <div class="menu-card" id="menu-host">
           <span class="menu-icon">🌐</span>
-          <h3>Host Game / ઓનલાઈન હોસ્ટ</h3>
-          <p>રૂમ બનાવી લિંક શેર કરો. મિત્રો ઓનલાઈન જોડાઈ શકશે. Create room & invite friends.</p>
+          <h3>Host Game</h3>
+          <p>Create a room and share the link. Friends can join online.</p>
         </div>
         <div class="menu-card" id="menu-join">
           <span class="menu-icon">🤝</span>
-          <h3>Join Game / જોડાઓ</h3>
-          <p>રૂમ આઈડી નાખીને મિત્રની રમતમાં જોડાઓ. Join via shared Room ID.</p>
+          <h3>Join Game</h3>
+          <p>Enter a Room ID to join a friend's game.</p>
         </div>
       </div>
     </div>
@@ -743,11 +885,11 @@
     <!-- Screen 2: Local Play Setup -->
     <div id="screen-setup" class="screen">
       <div class="lobby-setup-container">
-        <h2 style="font-weight: 700; margin-bottom: 10px;">લોકલ રમત સેટિંગ્સ</h2>
-        <h4 style="color: var(--text-secondary); margin-bottom: 20px; font-weight: normal;">Local Setup / Players & Colors</h4>
+        <h2 style="font-weight: 700; margin-bottom: 10px;">Local Game Setup</h2>
+        <h4 style="color: var(--text-secondary); margin-bottom: 20px; font-weight: normal;">Players & Colors</h4>
 
         <div class="glass-input-group">
-          <label>ખેલાડીઓની સંખ્યા / Number of Players</label>
+          <label>Number of Players</label>
           <select id="local-player-count" class="glass-input" style="background: #1e293b;">
             <option value="2">2 Players</option>
             <option value="3">3 Players</option>
@@ -760,8 +902,8 @@
         </div>
 
         <div class="lobby-action-buttons">
-          <button class="btn btn-secondary" onclick="showScreen('screen-menu')">પાછા જાઓ / Back</button>
-          <button class="btn btn-accent" id="btn-start-local">શરૂ કરો / Start</button>
+          <button class="btn btn-secondary" onclick="showScreen('screen-menu')">Back</button>
+          <button class="btn btn-accent" id="btn-start-local">Start</button>
         </div>
       </div>
     </div>
@@ -770,30 +912,28 @@
     <div id="screen-lobby" class="screen">
       <div class="lobby-setup-container" style="max-width: 550px;">
         <div class="lobby-header">
-          <h2 id="lobby-status-title" style="font-weight: 800; font-size: 24px;">રૂમ બનાવવામાં આવી રહ્યો છે...</h2>
+          <h2 id="lobby-status-title" style="font-weight: 800; font-size: 24px;">Creating Room...</h2>
           <span style="font-size: 13px; color: var(--text-secondary)">Online Multiplayer Lobby</span>
         </div>
 
-        <div id="lobby-connection-info" class="w-full" style="display: none;">
-          <div class="room-code-box">
-            <span id="room-code-display" style="user-select: all;">------</span>
-            <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px;" id="btn-copy-link">
-              Copy Link / લિંક કોપી
-            </button>
-          </div>
-          <p style="font-size: 11px; color: var(--text-secondary); text-align: center; margin-bottom: 15px;">
-            આ લિંક તમારા મિત્રને મોકલો. Link contains connection token.
+        <div id="lobby-connection-info" class="w-full" style="display: none; margin: 15px 0;">
+          <span id="room-code-display" style="display: none;">------</span>
+          <button class="btn btn-accent w-full" style="padding: 12px; font-size: 14px;" id="btn-copy-link">
+            🔗 Copy Invite Link
+          </button>
+          <p style="font-size: 11px; color: var(--text-secondary); text-align: center; margin-top: 10px;">
+            Send this link to your friend to invite them.
           </p>
         </div>
 
         <div class="glass-input-group" id="online-name-group" style="display: none;">
-          <label>તમારું નામ / Your Name</label>
-          <input type="text" id="online-player-name" class="glass-input" placeholder="મારું નામ..." maxlength="12">
+          <label>Your Name</label>
+          <input type="text" id="online-player-name" class="glass-input" placeholder="My name..." maxlength="12">
         </div>
 
         <div style="width: 100%;">
           <h4 style="font-size: 13px; font-weight: 600; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 10px;">
-            જોડાયેલા ખેલાડીઓ / Connected Players
+            Connected Players
           </h4>
           <div id="lobby-player-list" class="player-list">
             <!-- Joined players will list here -->
@@ -808,8 +948,9 @@
         </div>
 
         <div class="lobby-action-buttons">
-          <button class="btn btn-secondary" id="btn-leave-lobby">પાછા જાઓ / Leave</button>
-          <button class="btn btn-accent" id="btn-start-online" style="display: none;">શરૂ કરો / Start Game</button>
+          <button class="btn btn-secondary" id="btn-leave-lobby">Leave</button>
+          <button class="btn btn-accent" id="btn-connect-join" style="display: none;">Join Game</button>
+          <button class="btn btn-accent" id="btn-start-online" style="display: none;">Start Game</button>
         </div>
       </div>
     </div>
@@ -828,8 +969,8 @@
           <!-- Players & Positions -->
           <div class="panel-card">
             <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
-              <span>ખેલાડીઓ / Players</span>
-              <span id="turn-badge-indicator" style="font-size: 12px; padding: 4px 8px; border-radius: 8px; background: rgba(56, 189, 248, 0.2); color: var(--accent-color)">મારો વારો / My Turn</span>
+              <span>Players</span>
+              <span id="turn-badge-indicator" style="font-size: 12px; padding: 4px 8px; border-radius: 8px; background: rgba(56, 189, 248, 0.2); color: var(--accent-color)">My Turn</span>
             </h3>
             <div id="game-player-list" class="player-list" style="margin: 0; max-width: 100%;">
               <!-- Player state rows -->
@@ -859,25 +1000,25 @@
             </div>
             
             <button class="btn btn-accent w-full" id="btn-roll" style="padding: 16px;">
-              🎲 પાસો ફેંકો / Roll Dice
+              🎲 Roll Dice
             </button>
           </div>
 
           <!-- Live Chat Component (shows only in Online mode) -->
           <div class="panel-card chat-card" id="chat-box" style="display: none;">
-            <h3 style="font-size: 14px; font-weight: 700; margin-bottom: 8px;">ચેટ બોક્સ / Chat</h3>
+            <h3 style="font-size: 14px; font-weight: 700; margin-bottom: 8px;">Chat</h3>
             <div class="chat-messages" id="chat-messages-container">
               <!-- Messages -->
             </div>
             <div class="chat-input-wrapper">
-              <input type="text" id="chat-input" class="glass-input" style="padding: 8px 12px; font-size: 14px;" placeholder="સંદેશો લખો / Type msg..." maxlength="80">
-              <button class="btn" id="btn-send-chat" style="padding: 8px 16px; font-size: 14px;">મોકલો</button>
+              <input type="text" id="chat-input" class="glass-input" style="padding: 8px 12px; font-size: 14px;" placeholder="Type message..." maxlength="80">
+              <button class="btn" id="btn-send-chat" style="padding: 8px 16px; font-size: 14px;">Send</button>
             </div>
           </div>
 
           <!-- Utility back to menu -->
           <button class="btn btn-secondary w-full" id="btn-exit-game" style="padding: 10px;">
-            🚪 રમત છોડો / Exit Game
+            🚪 Exit Game
           </button>
         </div>
       </div>
@@ -888,10 +1029,10 @@
   <div class="win-overlay" id="winner-overlay">
     <div class="win-card">
       <div class="win-crown">👑</div>
-      <h1 id="win-name-display" style="font-weight: 800; margin-bottom: 10px; font-size: 28px; background: linear-gradient(to right, #facc15, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">ખેલાડી ૧ જીતી ગયો!</h1>
-      <p id="win-details-display" style="color: var(--text-secondary); margin-bottom: 25px;">અભિનંદન! Winner reached the 100 Finish mark.</p>
+      <h1 id="win-name-display" style="font-weight: 800; margin-bottom: 10px; font-size: 28px; background: linear-gradient(to right, #facc15, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Player 1 Wins!</h1>
+      <p id="win-details-display" style="color: var(--text-secondary); margin-bottom: 25px;">Congratulations! The winner reached the 100 Finish mark.</p>
       <button class="btn btn-accent" id="btn-restart-game" style="padding: 12px 30px;">
-        🔄 ફરી રમો / Play Again
+        🔄 Play Again
       </button>
     </div>
   </div>
@@ -1196,7 +1337,7 @@
         
         conn.on('close', () => {
           delete this.connections[conn.peer];
-          showToast(`ખેલાડી ડિસકનેક્ટ થયો / Player left`);
+          showToast(`Player disconnected`);
           handleNetworkDisconnect(conn.peer);
         });
 
@@ -1228,26 +1369,32 @@
         switch (data.type) {
           case 'LOBBY_JOIN_REQUEST':
             if (GameState.isHost) {
-              // Add player to lobby
-              const newPlayerIdx = GameState.players.length;
-              if (newPlayerIdx >= 4) {
-                conn.send({ type: 'LOBBY_REJECT', reason: 'રૂમ ફૂલ છે / Room is full' });
-                conn.close();
-                return;
+              const existingPlayer = GameState.players.find(p => p.id === conn.peer);
+              if (existingPlayer) {
+                existingPlayer.name = data.name || existingPlayer.name;
+              } else {
+                // Add player to lobby
+                const newPlayerIdx = GameState.players.length;
+                if (newPlayerIdx >= 4) {
+                  conn.send({ type: 'LOBBY_REJECT', reason: 'Room is full' });
+                  conn.close();
+                  return;
+                }
+                
+                // Host assigns colors
+                const colors = ['#ef4444', '#06b6d4', '#eab308', '#d946ef'];
+                const playerObj = {
+                  id: conn.peer,
+                  name: data.name || `Player ${newPlayerIdx + 1}`,
+                  color: colors[newPlayerIdx],
+                  pos: 1,
+                  isAI: false,
+                  isLocal: false
+                };
+                
+                GameState.players.push(playerObj);
               }
               
-              // Host assigns colors
-              const colors = ['#ef4444', '#06b6d4', '#eab308', '#d946ef'];
-              const playerObj = {
-                id: conn.peer,
-                name: data.name || `Player ${newPlayerIdx + 1}`,
-                color: colors[newPlayerIdx],
-                pos: 1,
-                isAI: false,
-                isLocal: false
-              };
-              
-              GameState.players.push(playerObj);
               updateLobbyUI();
               
               // Sync updated players and state back to everyone
@@ -1270,6 +1417,15 @@
             this.peer.destroy();
             showScreen('screen-menu');
             break;
+
+          case 'KICK_PEER':
+            showToast(data.reason || "You have been removed from the lobby by the host.");
+            if (this.peer) this.peer.destroy();
+            GameState.reset();
+            showScreen('screen-menu');
+            // Remove ?room= parameter from address bar
+            window.history.replaceState({}, document.title, window.location.pathname);
+            break;
             
           case 'START_GAME_SYNC':
             if (!GameState.isHost) {
@@ -1277,7 +1433,7 @@
               GameState.mode = 'playing';
               showScreen('screen-game');
               initGameUI();
-              showToast("રમત શરૂ થઈ છે! / Game Started!");
+              showToast("Game Started!");
             }
             break;
 
@@ -1327,7 +1483,7 @@
               GameState.animQueue = [];
               GameState.currentAnim = null;
               document.getElementById('winner-overlay').classList.remove('active');
-              showToast("નવી રમત શરૂ કરવામાં આવી છે / Game restarted");
+              showToast("Game restarted");
               initGameUI();
             }
             break;
@@ -1359,14 +1515,13 @@
       
       const colors = ['#ef4444', '#06b6d4', '#eab308', '#d946ef'];
       const namesEn = ['Red Player', 'Blue Player', 'Yellow Player', 'Pink Player'];
-      const namesGu = ['લાલ ખેલાડી', 'વાદળી ખેલાડી', 'પીળો ખેલાડી', 'ગુલાબી ખેલાડી'];
       
       for (let i = 0; i < count; i++) {
         const row = document.createElement('div');
         row.className = 'player-edit-row';
         row.innerHTML = `
           <div class="player-color-dot" style="background: ${colors[i]};"></div>
-          <input type="text" class="glass-input local-p-name" value="${namesGu[i]}" placeholder="ખેલાડી નામ / Name" data-color="${colors[i]}" maxlength="12">
+          <input type="text" class="glass-input local-p-name" value="${namesEn[i]}" placeholder="Player Name" data-color="${colors[i]}" maxlength="12">
           <select class="glass-input local-p-type" style="padding: 8px 12px; font-size: 14px; background: #1e293b;">
             <option value="human">👤 Human</option>
             <option value="ai" ${i > 0 ? 'selected' : ''}>🤖 Computer</option>
@@ -1386,16 +1541,24 @@
         row.className = 'player-row';
         
         let badge = '';
-        if (idx === 0) badge = `<span class="player-badge host">HOST / હોસ્ટ</span>`;
-        else if (p.isAI) badge = `<span class="player-badge ai">AI / રોબોટ</span>`;
+        if (idx === 0) badge = `<span class="player-badge host">HOST</span>`;
+        else if (p.isAI) badge = `<span class="player-badge ai">AI</span>`;
         else badge = `<span class="player-badge">ONLINE</span>`;
+        
+        let kickButton = '';
+        if (GameState.isHost && p.id !== GameState.myPlayerId) {
+          kickButton = `<button class="btn btn-secondary" style="padding: 4px 8px; font-size: 11px; margin-left: 10px; border-color: #ef4444; color: #ef4444;" onclick="kickPlayer('${p.id}')">Kick</button>`;
+        }
         
         row.innerHTML = `
           <div class="player-color-dot" style="background: ${p.color};"></div>
           <div class="player-name-details">
             <span style="font-weight: 700;">${p.name} ${p.id === GameState.myPlayerId ? ' (You)' : ''}</span>
           </div>
-          ${badge}
+          <div style="margin-left: auto; display: flex; align-items: center; gap: 8px;">
+            ${badge}
+            ${kickButton}
+          </div>
         `;
         listContainer.appendChild(row);
       });
@@ -1408,6 +1571,41 @@
         document.getElementById('btn-start-online').style.display = 'none';
         document.getElementById('online-ai-control').style.display = 'none';
       }
+    }
+
+    // Kick guest player from room
+    function kickPlayer(peerId) {
+      if (!GameState.isHost) return;
+      
+      const player = GameState.players.find(p => p.id === peerId);
+      if (!player) return;
+      
+      const conn = P2PNetwork.connections[peerId];
+      if (conn) {
+        // Human player: notify them they are kicked
+        conn.send({
+          type: 'KICK_PEER',
+          reason: 'You have been removed from the lobby by the host.'
+        });
+        
+        // Disconnect after sending
+        setTimeout(() => {
+          if (P2PNetwork.connections[peerId]) {
+            P2PNetwork.connections[peerId].close();
+            delete P2PNetwork.connections[peerId];
+          }
+        }, 100);
+      }
+      
+      // Always remove locally (works for both AI and human fallback)
+      GameState.players = GameState.players.filter(p => p.id !== peerId);
+      updateLobbyUI();
+      
+      // Broadcast update to all remaining connections
+      P2PNetwork.broadcast({
+        type: 'LOBBY_STATE_SYNC',
+        players: GameState.players
+      });
     }
 
     // Handle offline drops
@@ -1435,7 +1633,7 @@
         } else {
           // If host dropped, kick to menu
           if (peerId === P2PNetwork.hostId) {
-            showToast("કનેક્શન તૂટી ગયું / Host left connection closed");
+            showToast("Connection lost. Host left.");
             GameState.reset();
             showScreen('screen-menu');
           }
@@ -1461,7 +1659,7 @@
           <div class="player-color-dot" style="background: ${p.color};"></div>
           <div class="player-name-details">
             <span style="font-weight: 700;">${p.name}${typeBadge}</span>
-            <span class="pos-badge">સ્થાન / Position: <strong id="game-player-pos-${idx}">${p.pos}</strong></span>
+            <span class="pos-badge">Position: <strong id="game-player-pos-${idx}">${p.pos}</strong></span>
           </div>
         `;
         listContainer.appendChild(row);
@@ -1476,16 +1674,16 @@
       
       if (GameState.online) {
         if (activePlayer.id === GameState.myPlayerId) {
-          turnIndicator.textContent = "તમારો વારો / My Turn";
+          turnIndicator.textContent = "My Turn";
           turnIndicator.style.background = "rgba(6, 182, 212, 0.2)";
           turnIndicator.style.color = "#06b6d4";
         } else {
-          turnIndicator.textContent = `${activePlayer.name} નો વારો`;
+          turnIndicator.textContent = `${activePlayer.name}'s Turn`;
           turnIndicator.style.background = "rgba(255, 255, 255, 0.05)";
           turnIndicator.style.color = "var(--text-secondary)";
         }
       } else {
-        turnIndicator.textContent = `${activePlayer.name} નો વારો`;
+        turnIndicator.textContent = `${activePlayer.name}'s Turn`;
         turnIndicator.style.background = activePlayer.isAI ? "rgba(234, 179, 8, 0.2)" : "rgba(244, 63, 94, 0.2)";
         turnIndicator.style.color = activePlayer.isAI ? "#eab308" : "#f43f5e";
       }
@@ -1497,7 +1695,7 @@
       
       if (GameState.isRolling) {
         btn.disabled = true;
-        btn.textContent = "રોલ થઈ રહ્યો છે...";
+        btn.textContent = "Rolling...";
         return;
       }
 
@@ -1505,10 +1703,10 @@
         // Online: can only click if active turn belongs to local peer ID
         if (activePlayer.id === GameState.myPlayerId) {
           btn.disabled = false;
-          btn.textContent = "🎲 પાસો ફેંકો / Roll Dice";
+          btn.textContent = "🎲 Roll Dice";
         } else {
           btn.disabled = true;
-          btn.textContent = `${activePlayer.name} નો વારો`;
+          btn.textContent = `${activePlayer.name}'s Turn`;
         }
       } else {
         // Local: can only click if active turn is NOT computer
@@ -1517,7 +1715,7 @@
           btn.textContent = "🤖 Computer thinking...";
         } else {
           btn.disabled = false;
-          btn.textContent = "🎲 પાસો ફેંકો / Roll Dice";
+          btn.textContent = "🎲 Roll Dice";
         }
       }
     }
@@ -1536,10 +1734,31 @@
     function triggerDiceRoll() {
       if (GameState.isRolling) return;
       
-      if (GameState.online && !GameState.isHost) {
-        // Send roll request command to host
-        P2PNetwork.sendToHost({ type: 'ROLL_REQUEST' });
-        return;
+      const activePlayer = GameState.players[GameState.currentPlayerIdx];
+      
+      if (GameState.online) {
+        if (!GameState.isHost) {
+          // Guest can only request if it is their turn
+          if (activePlayer.id !== GameState.myPlayerId) {
+            console.warn("Guest tried to roll on another player's turn.");
+            return;
+          }
+          // Send roll request command to host
+          P2PNetwork.sendToHost({ type: 'ROLL_REQUEST' });
+          return;
+        } else {
+          // Host can only roll if it's host's turn OR if it is an AI's turn
+          if (activePlayer.id !== GameState.myPlayerId && !activePlayer.isAI) {
+            console.warn("Host tried to roll on guest's turn.");
+            return;
+          }
+        }
+      } else {
+        // Local: cannot roll manually during AI's turn
+        if (activePlayer.isAI) {
+          console.warn("Manual roll attempted during AI turn.");
+          return;
+        }
       }
       
       // Execute local roll
@@ -1689,7 +1908,7 @@
             showToast(`${p.name} climbed a ladder! 🪜`);
           } else if (anim.isSpecial === 'snake') {
             AudioEngine.playSnake();
-            showToast(`ઓહ ના! ${p.name} ને સાપ કરડ્યો! 🐍`);
+            showToast(`Oh no! ${p.name} was bitten by a snake! 🐍`);
           } else {
             AudioEngine.playHop();
           }
@@ -1760,7 +1979,12 @@
         } else {
           // Advance turn count
           if (!GameState.online || GameState.isHost) {
-            GameState.currentPlayerIdx = (GameState.currentPlayerIdx + 1) % GameState.players.length;
+            if (GameState.diceValue === 6) {
+              showToast(`${activePlayer.name} rolled a 6 and gets another turn! 🎲`);
+            } else {
+              GameState.currentPlayerIdx = (GameState.currentPlayerIdx + 1) % GameState.players.length;
+            }
+            
             if (GameState.online && GameState.isHost) {
               broadcastGameStateToClients();
             }
@@ -1784,7 +2008,7 @@
       const overlay = document.getElementById('winner-overlay');
       const title = document.getElementById('win-name-display');
       
-      title.textContent = `${player.name} જીતી ગયો!`;
+      title.textContent = `${player.name} Wins!`;
       overlay.classList.add('active');
       
       AudioEngine.playWin();
@@ -2204,6 +2428,12 @@
     window.addEventListener('load', () => {
       BoardRenderer.init('game-canvas');
       
+      // Pre-fill name from localStorage if available
+      const savedName = localStorage.getItem('sapsidi_player_name');
+      if (savedName) {
+        document.getElementById('online-player-name').value = savedName;
+      }
+      
       // Auto routing based on URL Params (joins room directly)
       const urlParams = new URLSearchParams(window.location.search);
       const joinRoomCode = urlParams.get('room');
@@ -2226,14 +2456,14 @@
     // Host online room creation trigger
     document.getElementById('menu-host').addEventListener('click', () => {
       showScreen('screen-lobby');
-      document.getElementById('lobby-status-title').textContent = "રૂમ બનાવવામાં આવી રહ્યો છે...";
+      document.getElementById('lobby-status-title').textContent = "Creating Room...";
       document.getElementById('online-name-group').style.display = 'none';
       document.getElementById('lobby-connection-info').style.display = 'none';
       
       P2PNetwork.initHost(
         (peerId) => {
           // Room open callback
-          document.getElementById('lobby-status-title').textContent = "ઓનલાઈન રમત રૂમ";
+          document.getElementById('lobby-status-title').textContent = "Online Lobby Room";
           document.getElementById('lobby-connection-info').style.display = 'block';
           document.getElementById('room-code-display').textContent = peerId;
           document.getElementById('online-name-group').style.display = 'block';
@@ -2256,10 +2486,10 @@
         },
         (conn) => {
           // Inbound connection established
-          showToast(`નવો ખેલાડી જોડાયો / Player connected`);
+          showToast(`Player connected`);
         },
         (err) => {
-          showToast("રૂમ કનેક્શન એરર / Room connection error");
+          showToast("Room connection error");
           showScreen('screen-menu');
         }
       );
@@ -2267,48 +2497,93 @@
 
     // Join online room triggers
     document.getElementById('menu-join').addEventListener('click', () => {
-      const code = prompt("રૂમ આઈડી દાખલ કરો / Enter Room ID:");
+      const code = prompt("Enter Room ID:");
       if (code && code.trim().length > 0) {
         setupOnlineGuestMode(code.trim());
       }
     });
 
+    let pendingRoomCode = '';
+
     function setupOnlineGuestMode(roomCode) {
+      pendingRoomCode = roomCode;
+      
       showScreen('screen-lobby');
-      document.getElementById('lobby-status-title').textContent = "રૂમ કનેક્ટિંગ...";
+      document.getElementById('lobby-status-title').textContent = "Join Room";
       document.getElementById('lobby-connection-info').style.display = 'none';
       document.getElementById('online-name-group').style.display = 'block';
       
+      // Show connect button, hide start game button
+      document.getElementById('btn-connect-join').style.display = 'inline-flex';
+      document.getElementById('btn-start-online').style.display = 'none';
+      document.getElementById('online-ai-control').style.display = 'none';
+      
+      // Clear player list until connected
+      document.getElementById('lobby-player-list').innerHTML = '';
+      
+      // Enable inputs for typing name before joining
+      document.getElementById('online-player-name').disabled = false;
+      document.getElementById('btn-connect-join').disabled = false;
+      document.getElementById('btn-connect-join').textContent = "Join Game";
+    }
+
+    // Triggered when guest clicks Connect & Join button
+    document.getElementById('btn-connect-join').addEventListener('click', () => {
+      const nameVal = document.getElementById('online-player-name').value.trim();
+      if (nameVal.length === 0) {
+        showToast("Please enter your name");
+        return;
+      }
+      
+      // Save to localStorage
+      localStorage.setItem('sapsidi_player_name', nameVal);
+      
+      // Disable inputs during connection phase
+      document.getElementById('online-player-name').disabled = true;
+      document.getElementById('btn-connect-join').disabled = true;
+      document.getElementById('btn-connect-join').textContent = "Connecting...";
+      document.getElementById('lobby-status-title').textContent = "Connecting...";
+
       P2PNetwork.initGuest(
-        roomCode,
+        pendingRoomCode,
         (myId) => {
           GameState.reset();
           GameState.myPlayerId = myId;
-          document.getElementById('lobby-status-title').textContent = "રમતમાં જોડાયેલ છે";
         },
         (hostConn) => {
           // Connected callback
-          showToast("રૂમ સાથે જોડાયેલ છે! / Connected to host");
+          showToast("Connected to host");
+          document.getElementById('lobby-status-title').textContent = "Joined Game";
+          document.getElementById('btn-connect-join').style.display = 'none';
+          document.getElementById('online-player-name').disabled = false; // re-enable for renaming
+          
           // Send request join details
-          const name = document.getElementById('online-player-name').value || `Guest-${GameState.myPlayerId.slice(0, 4)}`;
           P2PNetwork.sendToHost({
             type: 'LOBBY_JOIN_REQUEST',
-            name: name
+            name: nameVal
           });
         },
         (err) => {
-          showToast("રૂમ કનેક્શન નિષ્ફળ! / Failed connecting to room");
+          showToast("Failed connecting to room");
+          document.getElementById('online-player-name').disabled = false;
+          document.getElementById('btn-connect-join').disabled = false;
+          document.getElementById('btn-connect-join').textContent = "Join Game";
+          document.getElementById('lobby-status-title').textContent = "Join Room";
           showScreen('screen-menu');
         }
       );
-    }
+    });
 
     // Name change listener sync
     document.getElementById('online-player-name').addEventListener('input', (e) => {
-      const newName = e.target.value.trim() || (GameState.isHost ? "Host Player" : "Guest Player");
+      const newName = e.target.value.trim();
+      if (newName.length > 0) {
+        localStorage.setItem('sapsidi_player_name', newName);
+      }
+      
       const me = GameState.players.find(p => p.id === GameState.myPlayerId);
       if (me) {
-        me.name = newName;
+        me.name = newName || (GameState.isHost ? "Host Player" : "Guest Player");
         updateLobbyUI();
         if (GameState.isHost) {
           P2PNetwork.broadcast({ type: 'LOBBY_STATE_SYNC', players: GameState.players });
@@ -2318,11 +2593,12 @@
       }
     });
 
+
     // Copy Invite Link Button
     document.getElementById('btn-copy-link').addEventListener('click', () => {
       const path = window.location.origin + window.location.pathname + `?room=${GameState.roomCode}`;
       navigator.clipboard.writeText(path).then(() => {
-        showToast("આમંત્રણ લિંક કોપી થઈ ગઈ! / Invite link copied!");
+        showToast("Invite link copied!");
       }).catch(err => {
         // Fallback
         showToast(`Room ID: ${GameState.roomCode}`);
@@ -2345,7 +2621,7 @@
         updateLobbyUI();
         P2PNetwork.broadcast({ type: 'LOBBY_STATE_SYNC', players: GameState.players });
       } else {
-        showToast("માત્ર ૪ ખેલાડી જ રમી શકશે! / Max 4 players");
+        showToast("Lobby is full! Max 4 players.");
       }
     });
 
@@ -2382,7 +2658,7 @@
       showScreen('screen-game');
       document.getElementById('chat-box').style.display = 'none'; // No chat in local
       initGameUI();
-      showToast("લોકલ રમત શરૂ થઈ ગઈ છે! / Game Started!");
+      showToast("Local game started!");
       
       // Auto trigger if first is AI
       triggerAITurn();
@@ -2392,7 +2668,7 @@
     document.getElementById('btn-start-online').addEventListener('click', () => {
       if (GameState.isHost) {
         if (GameState.players.length < 2) {
-          showToast("રમવા માટે ઓછામાં ઓછા ૨ ખેલાડી હોવા જોઈએ!");
+          showToast("Need at least 2 players to start!");
           return;
         }
         
@@ -2410,7 +2686,7 @@
           players: GameState.players
         });
         
-        showToast("રમત શરૂ થઈ ગઈ છે! / Game Started!");
+        showToast("Game started!");
         triggerAITurn();
       }
     });
@@ -2420,7 +2696,7 @@
 
     // Exit Gameplay
     document.getElementById('btn-exit-game').addEventListener('click', () => {
-      if (confirm("શું તમે ખરેખર રમત છોડવા માંગો છો? / Exit game?")) {
+      if (confirm("Are you sure you want to exit the game?")) {
         if (P2PNetwork.peer) P2PNetwork.peer.destroy();
         GameState.reset();
         document.getElementById('winner-overlay').classList.remove('active');
@@ -2472,7 +2748,7 @@
       
       // Add message locally
       const myName = GameState.players.find(p => p.id === GameState.myPlayerId)?.name || "Me";
-      GameState.chatMessages.push({ sender: 'મારું નામ (You)', text: text, style: 'sent' });
+      GameState.chatMessages.push({ sender: 'You', text: text, style: 'sent' });
       updateChatUI();
       
       // Broadcast to other peers
